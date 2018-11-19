@@ -7,7 +7,6 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 /**
  * Created by yong on 2018. 11. 18..
@@ -22,7 +21,4 @@ public abstract class BaseTimeEntity {
 
     @UpdateTimestamp
     private LocalDateTime updatedTime;
-
-    @CreationTimestamp
-    private LocalDateTime lastConnectedTime;
 }
