@@ -1,8 +1,9 @@
-package com.dz.web.controller;
+package com.dz.controller;
 
 import com.dz.domain.dto.MemberRepository;
 import com.dz.domain.dto.MemberSaveRequestDto;
 import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -25,5 +26,10 @@ public class WebRestController {
     @PostMapping("/member")
     public void savePosts(@RequestBody MemberSaveRequestDto dto){
         memberRepository.save(dto.toEntity());
+    }
+
+
+    public String test(){
+        return "helloworld";
     }
 }
