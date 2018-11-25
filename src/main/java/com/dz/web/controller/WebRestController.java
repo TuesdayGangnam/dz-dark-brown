@@ -1,7 +1,7 @@
-package com.dz.controller;
+package com.dz.web.controller;
 
-import com.dz.domain.member.MemberRepository;
-import com.dz.dto.member.MemberSaveRequestDto;
+import com.dz.domain.dto.MemberRepository;
+import com.dz.domain.dto.MemberSaveRequestDto;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;

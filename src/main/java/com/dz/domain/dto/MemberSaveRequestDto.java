@@ -1,6 +1,5 @@
-package com.dz.dto.member;
+package com.dz.domain.dto;
 
-import com.dz.domain.member.Member;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

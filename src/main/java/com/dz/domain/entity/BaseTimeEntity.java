@@ -1,4 +1,4 @@
-package com.dz.domain;
+package com.dz.domain.entity;
 
 import lombok.Getter;
 import org.hibernate.annotations.CreationTimestamp;

@@ -1,4 +1,4 @@
-package com.dz.admin.controller.member;
+package com.dz.web.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

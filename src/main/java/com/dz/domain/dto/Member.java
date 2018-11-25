@@ -1,6 +1,7 @@
-package com.dz.domain.member;
+package com.dz.domain.dto;
 
-import com.dz.domain.BaseTimeEntity;
+
+import com.dz.domain.entity.BaseTimeEntity;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;

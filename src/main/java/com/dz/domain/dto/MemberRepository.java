@@ -1,4 +1,4 @@
-package com.dz.domain.member;
+package com.dz.domain.dto;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
