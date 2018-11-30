@@ -21,6 +21,9 @@ public class ModuleTest {
 
     @Test
     public void 의존성테스트(){
+
+
+
         //WebRestController webRestController = new WebRestController();
         log.info("hello : {}", webRestController123.test());
 
