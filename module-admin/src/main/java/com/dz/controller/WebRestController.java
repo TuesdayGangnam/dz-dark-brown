@@ -28,7 +28,6 @@ public class WebRestController {
         memberRepository.save(dto.toEntity());
     }
 
-
     public String test(){
         return "helloworld";
     }
