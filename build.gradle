@@ -27,6 +27,22 @@ subprojects {
 	compileJava.options.encoding = 'UTF-8'  // 소스파일의 인코딩 형식 지정
 	sourceCompatibility = 1.8               // 소스코드의 자바 문법 버전
 
+
+	//mkdir src/main, src/test
+	task initSourceFolders {
+		sourceSets*.java.srcDirs*.each {
+			if( !it.exists() ) {
+				it.mkdirs()
+			}
+		}
+
+		sourceSets*.resources.srcDirs*.each {
+			if( !it.exists() ) {
+				it.mkdirs()
+			}
+		}
+	}
+
 	repositories {
 		mavenCentral()
 	}
