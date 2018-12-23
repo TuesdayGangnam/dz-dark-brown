@@ -1,2 +1,2 @@
 rootProject.name = 'dz-dark-brown'
-include 'module-admin', 'module-common', 'module-api', 'module-batch', 'moduleapi'
+include 'module-common', 'module-admin', 'module-api'
