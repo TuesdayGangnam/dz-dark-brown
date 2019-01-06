@@ -12,6 +12,7 @@ import java.io.IOException;
 @Slf4j
 @Configuration
 public class EmbeddedRedisConfig {
+
     @Value("${spring.redis.port}")
     private int redisPort;
 

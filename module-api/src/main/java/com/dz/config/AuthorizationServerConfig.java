@@ -1,7 +1,9 @@
 package com.dz.config;
 
 import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -15,25 +17,34 @@ import org.springframework.security.oauth2.provider.token.TokenStore;
 
 @Slf4j
 @Configuration
-@AllArgsConstructor
+@NoArgsConstructor
 @EnableAuthorizationServer
 public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
-
-    @Value("{dz.client}")
-    private String client;
-
-    @Value("{dz.password}")
-    private String password;
 
     private TokenStore tokenStore;
     private AuthenticationManager authenticationManager;
     private PasswordEncoder passwordEncoder;
     private UserDetailsService userDetailsService;
 
+    @Autowired
+    public AuthorizationServerConfig(TokenStore tokenStore, AuthenticationManager authenticationManager, PasswordEncoder passwordEncoder, UserDetailsService userDetailsService){
+        this.tokenStore = tokenStore;
+        this.authenticationManager = authenticationManager;
+        this.passwordEncoder = passwordEncoder;
+        this.userDetailsService = userDetailsService;
+    }
+
+    @Value("${client}")
+    private String client;
+
+    @Value("${password}")
+    private String password;
+
+
     @Override
     public void configure(ClientDetailsServiceConfigurer configurer) throws Exception {
 
-        log.error("client : {}, password : {}", this.client, this.password);
+        log.error("client : {}, password : {}" , client, password);
 
         configurer.inMemory()
                 .withClient(this.client)
