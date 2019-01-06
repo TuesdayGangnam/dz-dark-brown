@@ -2,7 +2,8 @@ package com.dz.service;
 
 import com.dz.ApiApplication;
 import com.dz.domain.entity.Member;
-import com.dz.web.service.MemberService;
+import com.dz.domain.entity.User;
+import com.dz.web.service.UserService;
 import org.junit.*;
 import org.junit.runner.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,18 +17,18 @@ import static org.junit.Assert.assertThat;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = ApiApplication.class)
-public class MemberServiceTest {
+public class UserServiceTest {
 
     @Autowired
-    private MemberService MemberServiceImpl;
+    private UserService userServiceImpl;
 
     @Test
     public void MemberService_common_의존성테스트(){
 
 
-        List<Member> members = MemberServiceImpl.getMemberList();
+        List<User> users = userServiceImpl.findAll();
 
-        assertThat(members.get(0).getMemberName(), is("jihoon"));
+        assertThat(users.get(0).getUsername(), is("jihoon"));
 
     }
 
