@@ -1,14 +1,15 @@
 package com.dz.domain.entity;
 
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 
-@Data
+@Getter
 @Entity
 @Table
+@NoArgsConstructor
 public class User {
 
     @Id

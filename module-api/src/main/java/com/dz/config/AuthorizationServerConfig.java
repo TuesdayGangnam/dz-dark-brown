@@ -43,9 +43,6 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
     @Override
     public void configure(ClientDetailsServiceConfigurer configurer) throws Exception {
-
-        log.error("client : {}, password : {}" , client, password);
-
         configurer.inMemory()
                 .withClient(this.client)
                 .secret(passwordEncoder.encode(this.password))
