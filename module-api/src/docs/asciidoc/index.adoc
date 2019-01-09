@@ -1,3 +1,6 @@
+ifndef::snippets[]
+:snippets: ../../../build/generated-snippets
+endif::[]
 = Rest Docs Sample API Document
 localhost:8080
 :doctype: book
