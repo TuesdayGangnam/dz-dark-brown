@@ -26,7 +26,7 @@ import static org.springframework.restdocs.restassured3.RestAssuredRestDocumenta
 import static org.springframework.restdocs.restassured3.RestAssuredRestDocumentation.documentationConfiguration;
 
 @SpringBootTest(classes = ApiApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class UserControllerTest extends Specification {
+class UserControllerTest1 extends Specification {
 
     /**
      * 자동 생성될 문서들의 Root 디렉토리를 지정합니다.
@@ -69,7 +69,7 @@ class UserControllerTest extends Specification {
                 ))
             .header("Authorization", "Bearer 710a0318-3b86-46fe-a076-f264baa81523")
             .when().get("/users/user")
-            .then().assertThat().statusCode(is(200))
+            .then().assertThat().statusCode(is(200));
 
     }
 

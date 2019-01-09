@@ -57,8 +57,8 @@ API에 관계없이 아래 사항을 지켜주셔야 합니다.
 | 실제 반환될 데이터
 |===
 
-[[hello]]
-== Hello World API
+[[users]]
+== user API
 
 === Request
 

@@ -21,7 +21,7 @@ subprojects {
 	version = "${projectVersion}"
 
 	apply plugin: 'java'
-	apply plugin: 'groovy' // for spock
+	apply plugin: 'groovy'
 	apply plugin: 'org.springframework.boot'
 	apply plugin: 'io.spring.dependency-management'
 
