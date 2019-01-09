@@ -1,7 +1,6 @@
 package com.dz.web.service;
 
 import com.dz.domain.dto.UserDto;
-import com.dz.domain.entity.Member;
 import com.dz.domain.entity.User;
 
 import java.util.List;

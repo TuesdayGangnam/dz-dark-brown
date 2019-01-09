@@ -1,6 +1,5 @@
 package com.dz.config;
 
-import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,8 +50,8 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
                         "refresh_token",
                         "implicit")
                 .scopes("read", "write", "trust")
-                .accessTokenValiditySeconds(1 * 60 * 60)
-                .refreshTokenValiditySeconds(6 * 60 * 60);
+                .accessTokenValiditySeconds(10 * 60 * 60)
+                .refreshTokenValiditySeconds(24 * 60 * 60);
     }
 
     @Override

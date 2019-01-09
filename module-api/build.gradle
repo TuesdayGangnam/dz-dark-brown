@@ -1,3 +1,30 @@
+plugins {
+    id "org.asciidoctor.convert" version "1.5.3"
+}
+
+ext {
+    snippetsDir = file('build/generated-snippets')
+}
+
+asciidoctor {
+    inputs.dir snippetsDir
+    dependsOn test
+}
+
+task copyDocument(type: Copy) { // SpringBoot 1.5 이하일 경우 jar
+    dependsOn asciidoctor
+    /**
+     * from ~ into가 하는 일은 간단합니다.
+     * Rest Docs로 문서(html)가 만들어지면 build/asciidoc/html5/에 생성되는데요.
+     * 생성된 문서를 src/main/resources/static/docs로 복사하는 것입니다.
+     */
+    from file("build/asciidoc/html5/")
+    into file("src/main/resources/static/docs")
+}
+
+build {
+    dependsOn copyDocument
+}
 
 dependencies {
     implementation project(':module-common')
@@ -12,5 +39,12 @@ dependencies {
     implementation('it.ozimov:embedded-redis:0.7.2')
     compileOnly('org.projectlombok:lombok')
     implementation('org.springframework.security.oauth:spring-security-oauth2:2.3.4.RELEASE')
-    testImplementation('org.springframework.boot:spring-boot-starter-test:2.0.1.RELEASE')
+
+    // rest assured & asciidoc
+    implementation('org.springframework.restdocs:spring-restdocs-restassured')
+    asciidoctor 'org.springframework.restdocs:spring-restdocs-asciidoctor:2.0.1.RELEASE'
+
+    testImplementation('io.rest-assured:rest-assured:3.0.2') // for rest assured
+    testImplementation('org.springframework.restdocs:spring-restdocs-restassured') // for rest assured
+
 }
