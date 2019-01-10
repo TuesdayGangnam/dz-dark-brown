@@ -1,0 +1,27 @@
+client: "test"
+password: "1234"
+
+spring:
+  profiles:
+    active: local
+  h2:
+    console:
+      enabled: true
+  redis:
+    port: 6379
+    host: localhost
+    password:
+  jpa:
+    hibernate:
+      ddl-auto: update
+      naming:
+        implicit-strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
+        physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
+    show-sql: true
+    properties:
+      hibernate.format_sql: true # 형식화된 sql 문을 보여준다. Beautifier 기능이라고 생각하면 된다
+      hibernate.enable_lazy_load_no_trans: true #Lazy Load 를 적용하기 위한 설정
+    database: mysql
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+  thymeleaf:
+    cache: false

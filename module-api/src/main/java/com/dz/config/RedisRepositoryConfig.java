@@ -1,6 +1,8 @@
 package com.dz.config;
 
+import lombok.Setter;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
@@ -9,9 +11,16 @@ import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactor
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.repository.configuration.EnableRedisRepositories;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @Configuration
 @EnableRedisRepositories
+@ConfigurationProperties(prefix = "spring")
 public class RedisRepositoryConfig {
+
+    @Setter
+    private Map<String, String> profiles = new HashMap<>();
 
     @Value("${spring.redis.host}")
     private String redisHost;
@@ -27,7 +36,9 @@ public class RedisRepositoryConfig {
         RedisStandaloneConfiguration redisStandaloneConfiguration = new RedisStandaloneConfiguration();
         redisStandaloneConfiguration.setPort(redisPort);
         redisStandaloneConfiguration.setHostName(redisHost);
+
         redisStandaloneConfiguration.setPassword(redisPassword);
+
         return redisStandaloneConfiguration;
     }
 
