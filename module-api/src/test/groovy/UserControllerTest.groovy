@@ -4,7 +4,6 @@ import io.restassured.http.ContentType
 import io.restassured.response.Response
 import io.restassured.specification.RequestSpecification
 import org.junit.Rule
-import org.junit.runner.RunWith
 import org.springframework.boot.json.JacksonJsonParser
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.web.server.LocalServerPort
