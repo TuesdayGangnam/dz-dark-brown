@@ -15,6 +15,11 @@ public class UserController {
 
     private final UserService userService;
 
+    @GetMapping("/test")
+    public String UserTest() {
+        return "user test";
+    }
+
     @GetMapping("/user")
     public List<User> listUser() {
         return userService.findAll();
