@@ -33,5 +33,12 @@ public class SampleController {
 
     }
 
+    @GetMapping("/git/pull/request")
+    public ResponseEntity gitPullRequestTest(){
+        throw internalException(ILLEGAL_ARGS_FAIL);
+
+    }
+
+
 
 }
