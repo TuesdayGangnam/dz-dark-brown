@@ -6,24 +6,19 @@ import io.restassured.http.ContentType
 import io.restassured.specification.RequestSpecification
 import org.junit.Rule
 import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.boot.test.json.JsonbTester
 import org.springframework.boot.web.server.LocalServerPort
 import org.springframework.restdocs.JUnitRestDocumentation
 import org.springframework.restdocs.payload.JsonFieldType
 import spock.lang.Specification
-import sun.jvm.hotspot.oops.FieldType
 
-import static io.restassured.RestAssured.given;
-import static org.hamcrest.CoreMatchers.*
+import static io.restassured.RestAssured.given
+import static org.hamcrest.CoreMatchers.is
 import static org.springframework.restdocs.headers.HeaderDocumentation.headerWithName
-import static org.springframework.restdocs.headers.HeaderDocumentation.requestHeaders;
-import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;
-import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
-import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
-import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
-import static org.springframework.restdocs.request.RequestDocumentation.requestParameters;
-import static org.springframework.restdocs.restassured3.RestAssuredRestDocumentation.document;
-import static org.springframework.restdocs.restassured3.RestAssuredRestDocumentation.documentationConfiguration;
+import static org.springframework.restdocs.headers.HeaderDocumentation.requestHeaders
+import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath
+import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields
+import static org.springframework.restdocs.restassured3.RestAssuredRestDocumentation.document
+import static org.springframework.restdocs.restassured3.RestAssuredRestDocumentation.documentationConfiguration
 
 @SpringBootTest(classes = ApiApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class UserControllerTest1 extends Specification {
