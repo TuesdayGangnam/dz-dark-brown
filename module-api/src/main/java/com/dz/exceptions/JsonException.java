@@ -33,6 +33,5 @@ public class JsonException extends RuntimeException implements InternalException
         returnHttpInfo.put("httpCode", this.getHttpCode());
         returnHttpInfo.put("httpMessage", this.getHttpMessage());
         return returnHttpInfo;
-
     }
 }

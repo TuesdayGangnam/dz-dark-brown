@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import static com.dz.constant.ResponseCode.ILLEGAL_ARGS_FAIL;
-import static com.dz.exceptions.LogicExcepion.internalException;
+import static com.dz.exceptions.CustomLogicExcepion.internalException;
 
 
 @Slf4j
