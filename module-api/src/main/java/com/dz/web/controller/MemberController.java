@@ -2,25 +2,26 @@ package com.dz.web.controller;
 
 import com.dz.constant.ResponseSuccess;
 import com.dz.domain.entity.Member;
-import com.dz.domain.entity.Memmber;
+import com.dz.web.service.MemberService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
 @AllArgsConstructor
-@RequestMapping("/memmbers")
+@RequestMapping("/api/v1/members")
 public class MemberController {
 
-    @GetMapping("/members")
-    public List<Member> getListMember(){
-        return null;
+    private final MemberService memberService;
+
+    @GetMapping()
+    public ResponseEntity getListMember(){
+
+        return ResponseSuccess.success(memberService.getMemberList());
     }
 
     @GetMapping("/member/{id}")
-    public Member getMember(){
+    public Member getMember(@PathVariable int id){
         return null;
     }
 
@@ -30,7 +31,7 @@ public class MemberController {
     }
 
     @PutMapping("/member/{no}")
-    public Member updateMember(@RequestBody Memmber member, @PathVariable int no){
+    public Member updateMember(@RequestBody Member member, @PathVariable int no){
         return null;
     }
 
