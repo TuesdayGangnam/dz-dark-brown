@@ -9,5 +9,5 @@ import javax.persistence.Id;
 @Data
 public class Member {
     @Id
-    long id;
+    long memberId;
 }

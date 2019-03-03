@@ -9,6 +9,6 @@ import java.util.Map;
 public class MemberService {
 
     public List<Map> getMemberList() {
-
+        return null;
     }
 }
