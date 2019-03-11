@@ -1,7 +1,11 @@
 package com.dz.controller;
 
 import com.dz.ApiApplication;
+
 import com.dz.domain.dto.MemberDto;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -38,7 +42,8 @@ public class MemberControllerTest {
         this.mockMvc.perform(get("/api/v1/members")
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
                 .accept(MediaType.APPLICATION_JSON_UTF8)
-                .param("memberId", "1234"))
+                .param("memberId", "1234")
+                .param("sex", "male"))
                 .andDo(print())
                 .andExpect(jsonPath("code").exists())
                 .andExpect(jsonPath("results").exists())
@@ -66,8 +71,22 @@ public class MemberControllerTest {
     }
 
     @Test
-    public void 멤버생성() {
+    public void 멤버생성()  throws Exception{
 
+        //given
+        MemberDto memberDto = MemberDto.builder()
+                .id("yongjin")
+                .password("1234")
+                .build();
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
+        ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
+        String requestJson=ow.writeValueAsString(memberDto);
+
+        this.mockMvc.perform(get("/api/v1/members")
+                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .param("members", requestJson))
+                .andDo(print());
     }
 
     @Test

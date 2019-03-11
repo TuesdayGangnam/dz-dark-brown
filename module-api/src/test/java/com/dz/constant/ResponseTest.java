@@ -47,7 +47,6 @@ public class ResponseTest {
         mockMvc = MockMvcBuilders.webAppContextSetup(webContext).addFilter(springSecurityFilterChain).build();
     }
 
-
     @Test
     public void response값_확인() {
         String abc = "";
@@ -107,6 +106,4 @@ public class ResponseTest {
         JacksonJsonParser jsonParser = new JacksonJsonParser();
         return jsonParser.parseMap(resultString).get("access_token").toString();
     }
-
-
 }

@@ -55,5 +55,6 @@ dependencies {
     testImplementation('io.rest-assured:rest-assured:3.0.2') // for rest assured
     testImplementation('org.springframework.restdocs:spring-restdocs-restassured') // for rest assured
     testImplementation('org.springframework.security:spring-security-test:5.0.0.RELEASE')
-
+    // https://mvnrepository.com/artifact/com.jayway.restassured/json-path
+    testImplementation('com.jayway.restassured:json-path:2.9.0')
 }

@@ -132,4 +132,5 @@ class UserControllerTest extends Specification {
         JacksonJsonParser jsonParser = new JacksonJsonParser()
         return jsonParser.parseMap(res.then().extract().response().asString()).get("access_token").toString();
     }
+
 }

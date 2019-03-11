@@ -1,14 +1,17 @@
 package com.dz.web.service;
 
-import org.springframework.stereotype.Service;
-
+import com.dz.domain.entity.Member;
 import java.util.List;
-import java.util.Map;
 
-@Service
-public class MemberService {
+public interface MemberService {
 
-    public List<Map> getMemberList() {
-        return null;
-    }
+    List findAll();
+
+    Member create(Member member);
+
+    Member update(Member member);
+
+    void delete(Member member);
+
+    Member findByUserId(long id);
 }
