@@ -1,43 +1,19 @@
 package com.dz.controller;
 
-import com.dz.ApiApplication;
-
-import com.dz.domain.dto.MemberDto;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ObjectWriter;
-import com.fasterxml.jackson.databind.SerializationFeature;
-import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.web.servlet.MockMvc;
 
 import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
 
-@Slf4j
-@RunWith(SpringRunner.class)
-@SpringBootTest(classes = ApiApplication.class, webEnvironment = SpringBootTest.WebEnvironment.MOCK)
-@AutoConfigureMockMvc
-public class MemberControllerTest {
-
-    @Autowired
-    private MockMvc mockMvc;
+public class MemberControllerTest extends BaseController {
 
     @Test
-    public void 멤버조회_정상케이스() throws Exception {
-
-        //given
-        MemberDto memberDto = MemberDto.builder()
-                .memberId(1234)
-                .build();
+    public void 멤버리스트조회_정상케이스() throws Exception {
 
         this.mockMvc.perform(get("/api/v1/members")
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
@@ -54,11 +30,6 @@ public class MemberControllerTest {
     @Test
     public void 멤버조회_실퍠_검색조건_성별_없는경우() throws Exception {
 
-        //given
-        MemberDto memberDto = MemberDto.builder()
-                .memberId(1234)
-                .build();
-
         this.mockMvc.perform(get("/api/v1/members")
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
                 .accept(MediaType.APPLICATION_JSON_UTF8)
@@ -66,27 +37,39 @@ public class MemberControllerTest {
         )
                 .andDo(print())
                 .andExpect(jsonPath("code").value(is("401")))
-
         ;
     }
 
     @Test
-    public void 멤버생성()  throws Exception{
+    public void 멤버조회_정상케이스() throws Exception{
 
-        //given
-        MemberDto memberDto = MemberDto.builder()
-                .id("yongjin")
-                .password("1234")
-                .build();
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
-        ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
-        String requestJson=ow.writeValueAsString(memberDto);
-
-        this.mockMvc.perform(get("/api/v1/members")
+        this.mockMvc.perform(get("/api/v1/members/{member_id}", 1L)
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
-                .param("members", requestJson))
-                .andDo(print());
+                .accept(MediaType.APPLICATION_JSON_UTF8))
+                .andDo(print())
+                .andExpect(jsonPath("code").value("200"))
+                .andExpect(jsonPath("$.results.member.id").value("yongjin"))
+        ;
+    }
+
+    @Test
+    public void 멤버생성_정상케이스()  throws Exception{
+
+        String requestJson = convertObjectToJsonString(normalMember);
+
+        this.mockMvc.perform(post("/api/v1/members")
+                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .accept(MediaType.APPLICATION_JSON_UTF8)
+                .content( requestJson))
+                .andDo(print())
+                .andExpect(jsonPath("code").value("200"))
+        ;
+    }
+
+    @Test
+    public void 멤버생성후_조회_정상케이스() throws Exception {
+        멤버생성_정상케이스();
+        멤버조회_정상케이스();
     }
 
     @Test
