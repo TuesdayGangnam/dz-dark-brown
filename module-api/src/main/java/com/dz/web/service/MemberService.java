@@ -1,12 +1,14 @@
 package com.dz.web.service;
 
+import com.dz.domain.dto.request.MemberResponseDto;
 import com.dz.domain.entity.Member;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 public interface MemberService {
 
-    List findAll();
+    List<Member> findAll();
 
     Member create(Member member);
 
@@ -15,4 +17,6 @@ public interface MemberService {
     void delete(Member member);
 
     Optional<Member> findByUserId(long id);
+
+    Map<String, MemberResponseDto> getMember(long memberId);
 }

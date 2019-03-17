@@ -31,6 +31,13 @@ public class ResponseSuccess {
         return ResponseEntity.ok(responseResult);
     }
 
+    public static <T> ResponseEntity success(T result) {
+        Map<String, Object> responseResult = getOkCodeMsgResult();
+        responseResult.put(RESULTS.getResponseKey(), result);
+
+        return ResponseEntity.ok(responseResult);
+    }
+
     public static <T> ResponseEntity success(List<T> results) {
         Map<String, Object> responseResult = getOkCodeMsgResult();
         responseResult.put(RESULTS.getResponseKey(), results);
