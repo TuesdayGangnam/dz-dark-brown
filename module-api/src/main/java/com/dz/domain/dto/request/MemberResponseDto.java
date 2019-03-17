@@ -1,85 +1,97 @@
-package com.dz.domain.entity;
+package com.dz.domain.dto.request;
 
-import com.dz.domain.dto.request.MemberResponseDto;
+import com.dz.domain.entity.Member;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import lombok.*;
 
-import javax.persistence.*;
+
+import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
 
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor
-@Entity
+@Setter
 @Getter
 @Builder
-public class Member {
+@NoArgsConstructor
+@AllArgsConstructor
+@JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
+public class MemberResponseDto {
 
+    @NotNull
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="member_id")
+    @JsonProperty("member_id")
     private long memberId;
 
-    @Column(nullable = false)
+    @NotNull
     private String id;
 
-    @Column(nullable = false)
-    private String password;
-
-    @Column(nullable = false)
+    @NotNull
     private String sex;
 
-    @Column(name="birth_day", nullable = false)
+    @NotNull
+    @JsonProperty("birth_day")
     private String birthDay;
 
-    @Column(nullable = false)
+    @NotNull
     private String nickname;
 
-    @Column(nullable = false)
+    @NotNull
     private String location;
 
-    @Column(name="location_detail", nullable = false)
+    @NotNull
+    @JsonProperty("location_detail")
     private String locationDetail;
 
-    @Column(nullable = false)
+    @NotNull
     private String height;
 
-    @Column(name="body_type", nullable = false)
+    @NotNull
+    @JsonProperty("body_type")
     private String bodyType;
 
-    @Column(name="education_background", nullable = false)
+    @NotNull
+    @JsonProperty("education_background")
     private String educationBackground;
 
-    @Column(nullable = false)
+    @NotNull
     private String job;
 
-    @Column(name="job_detail", nullable = false)
+    @NotNull
+    @JsonProperty("job_detail")
     private String jobDetail;
 
-    @Column(nullable = false)
+    @NotNull
     private String religion;
 
-    @Column(name="drink_yn", nullable = false)
+    @NotNull
+    @JsonProperty("drink_yn")
     private String drinkYn;
 
-    @Column(name="smoke_yn", nullable = false)
+    @NotNull
+    @JsonProperty("smoke_yn")
     private String smokeYn;
 
-    @Column(name="profile_photo_id", nullable = false)
+    @NotNull
+    @JsonProperty("profile_photo_id")
     private long profilePhotoId;
 
-    @Column(nullable = false)
+    @NotNull
     private String tier;
 
-    @Column(name = "created_time")
+    @JsonProperty("created_time")
     private LocalDateTime createdTime;
 
-    @Column(name = "updated_time")
+    @JsonProperty("updated_time")
     private LocalDateTime updatedTime;
 
-    public MemberResponseDto toResponseDto(){
-        return MemberResponseDto
+    public Member toEntity(){
+        return Member
                 .builder()
-                .memberId(memberId)
                 .id(id)
                 .sex(sex)
                 .birthDay(birthDay)
@@ -96,7 +108,6 @@ public class Member {
                 .smokeYn(smokeYn)
                 .profilePhotoId(profilePhotoId)
                 .tier(tier)
-                .createdTime(createdTime)
                 .build();
     }
 }

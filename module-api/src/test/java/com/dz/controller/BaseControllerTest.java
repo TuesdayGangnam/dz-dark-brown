@@ -2,7 +2,7 @@ package com.dz.controller;
 
 
 import com.dz.ApiApplication;
-import com.dz.domain.dto.MemberDto;
+import com.dz.domain.dto.response.MemberRequestDto;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.SerializationFeature;
@@ -21,18 +21,20 @@ import org.springframework.transaction.annotation.Transactional;
 @SpringBootTest(classes = ApiApplication.class, webEnvironment = SpringBootTest.WebEnvironment.MOCK)
 @AutoConfigureMockMvc
 @Transactional
-public class BaseController {
-
+public class BaseControllerTest {
 
     @Autowired
     protected MockMvc mockMvc;
 
-    MemberDto normalMember;
+    MemberRequestDto normalMember;
+
+    MemberRequestDto updatedMember;
+
+    MemberRequestDto deletedMember;
 
     @Before
     public void init(){
-        normalMember = MemberDto.builder()
-                .memberId(1)
+        normalMember = MemberRequestDto.builder()
                 .id("yongjin")
                 .password("1234")
                 .sex("male")
@@ -51,6 +53,32 @@ public class BaseController {
                 .profilePhotoId(1)
                 .tier("5.47")
                 .build();
+
+
+        updatedMember = MemberRequestDto.builder()
+                .id("jihoon")
+                .password("5678")
+                .sex("male")
+                .birthDay("19000000")
+                .nickname("마스터")
+                .location("서울")
+                .locationDetail("강남구")
+                .height("190")
+                .bodyType("일반")
+                .educationBackground("4년제")
+                .job("직장인")
+                .jobDetail("소프트웨어 엔지니어")
+                .religion("없음")
+                .drinkYn("Y")
+                .smokeYn("N")
+                .profilePhotoId(2)
+                .tier("5.47")
+                .build();
+
+        deletedMember = MemberRequestDto.builder()
+                .id("yongjin")
+                .password("1234")
+                .build();
     }
 
 
@@ -60,6 +88,4 @@ public class BaseController {
                 .writerWithDefaultPrettyPrinter();
         return writer.writeValueAsString(object);
     }
-
-
 }

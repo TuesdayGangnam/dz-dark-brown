@@ -1,76 +1,87 @@
 package com.dz.web.controller;
 
 import com.dz.constant.ResponseSuccess;
-import com.dz.domain.dto.MemberDto;
+import com.dz.domain.dto.request.MemberResponseDto;
+import com.dz.domain.dto.response.MemberRequestDto;
 import com.dz.domain.entity.Member;
 import com.dz.web.service.MemberService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
-import static com.dz.constant.ResponseCode.ILLEGAL_ARGS_FAIL;
+import static com.dz.constant.ResponseCode.NOT_FOUND_DATA;
 import static com.dz.exceptions.LogicExcepion.internalException;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("/api/v1/member")
+@RequestMapping("/api/v1")
 public class MemberController {
-
 
     private MemberService memberService;
 
-    @GetMapping("")
-    public ResponseEntity getMemberList(@ModelAttribute @Valid MemberDto memberDto, Errors errors) {
-
-        if(errors.hasErrors()){
-            throw internalException(ILLEGAL_ARGS_FAIL);
-        }
-
-        Member memberList = memberDto.toEntity();
-
-        List<Member> members = new ArrayList<>();
-        members.add(memberList);
-        // 회원 조회
-        return ResponseSuccess.success(members);
+    @GetMapping("/members")
+    public ResponseEntity getMembers() {
+        List<Member> members = memberService.findAll();
+        List<MemberResponseDto> memberDtoList = members.stream().map(Member::toResponseDto).collect(Collectors.toList());
+        return ResponseSuccess.success(memberDtoList);
     }
 
-    @GetMapping("/member/{id}")
-    public ResponseEntity getMember(@PathVariable long id) {
-        Member member = memberService.findByUserId(id);
-        MemberDto memberDto = member.toEntity();
+    @GetMapping("/members/{member_id}")
+    public ResponseEntity getMember(@PathVariable long member_id) {
+
+        Optional<Member> memberOptional = memberService.findByUserId(member_id);
+        
+        if (!memberOptional.isPresent()){
+            throw internalException(NOT_FOUND_DATA);
+        }
+
+        MemberResponseDto memberresponseDto = memberOptional.get().toResponseDto();
 
         Map<String, Object> responseResult = new HashMap<>();
-        responseResult.put("member", memberDto);
+        responseResult.put("member", memberresponseDto);
 
         return ResponseSuccess.success(responseResult);
     }
 
-    @PostMapping("/member")
-    public ResponseEntity saveMember(@RequestBody MemberDto memberDto) {
-        memberService.create(memberDto.toEntity());
+    @PostMapping("/members")
+    public ResponseEntity saveMember(@RequestBody @Valid MemberRequestDto memberRequestDto) {
+        memberService.create(memberRequestDto.toEntity());
 
         return ResponseSuccess.success();
     }
 
-    @PutMapping("/member")
-    public ResponseEntity updateMember(@RequestBody MemberDto memberDto) {
-        memberService.update(memberDto.toEntity());
+    @PutMapping("/members/{member_id}")
+    public ResponseEntity updateMember(@RequestBody @Valid MemberRequestDto memberRequestDto, @PathVariable long member_id) {
+        Optional<Member> memberOptional = memberService.findByUserId(member_id);
+
+        if (!memberOptional.isPresent()) {
+            throw internalException(NOT_FOUND_DATA);
+        }
+
+        memberRequestDto.setMemberId(member_id);
+        memberService.update(memberRequestDto.toEntity());
 
         return ResponseSuccess.success();
     }
 
-    @DeleteMapping("/member")
-    public ResponseEntity deleteMember(@RequestBody MemberDto memberDto) {
-        memberService.delete(memberDto.toEntity());
+    @DeleteMapping("/members/{member_id}")
+    public ResponseEntity deleteMember(@RequestBody @Valid MemberRequestDto memberRequestDto, @PathVariable long member_id) {
+        Optional<Member> memberOptional = memberService.findByUserId(member_id);
+
+        if (!memberOptional.isPresent()) {
+            throw internalException(NOT_FOUND_DATA);
+        }
+
+        memberRequestDto.setMemberId(member_id);
+        memberService.delete(memberRequestDto.toEntity());
 
         return ResponseSuccess.success();
     }
-
 }

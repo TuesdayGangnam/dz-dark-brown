@@ -2,6 +2,7 @@ package com.dz.web.service;
 
 import com.dz.domain.entity.Member;
 import java.util.List;
+import java.util.Optional;
 
 public interface MemberService {
 
@@ -13,5 +14,5 @@ public interface MemberService {
 
     void delete(Member member);
 
-    Member findByUserId(long id);
+    Optional<Member> findByUserId(long id);
 }

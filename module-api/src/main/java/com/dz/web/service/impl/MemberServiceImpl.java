@@ -9,10 +9,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 
 import java.util.List;
+import java.util.Optional;
 
 @Service("MemberService")
 @AllArgsConstructor
-public class MembersServiceImpl implements MemberService {
+public class MemberServiceImpl implements MemberService {
 
     private MemberRepository memberRepository;
 
@@ -26,7 +27,6 @@ public class MembersServiceImpl implements MemberService {
     @Override
     public Member create(Member member) {
         return memberRepository.save(member);
-
     }
 
     @Transactional
@@ -43,7 +43,7 @@ public class MembersServiceImpl implements MemberService {
 
     @Transactional
     @Override
-    public Member findByUserId(long id) {
+    public Optional<Member> findByUserId(long id) {
         return memberRepository.findByMemberId(id);
     }
 }

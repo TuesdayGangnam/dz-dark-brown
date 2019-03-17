@@ -1,15 +1,13 @@
-package com.dz.domain.dto;
+package com.dz.domain.dto.response;
 
 import com.dz.domain.entity.Member;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import lombok.*;
-import org.codehaus.jackson.annotate.JsonProperty;
 
-import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
-
 
 @Setter
 @Getter
@@ -17,17 +15,16 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
-public class MemberDto {
+public class MemberRequestDto {
 
-    @NotNull
-    @Id
+    @JsonProperty("member_id")
     private long memberId;
 
     @NotNull
-    private String id;
+    private String password;
 
     @NotNull
-    private String password;
+    private String id;
 
     @NotNull
     private String sex;
@@ -77,7 +74,7 @@ public class MemberDto {
 
     @NotNull
     @JsonProperty("profile_photo_id")
-    private String profilePhotoId;
+    private long profilePhotoId;
 
     @NotNull
     private String tier;
@@ -91,6 +88,7 @@ public class MemberDto {
     public Member toEntity(){
         return Member
                 .builder()
+                .memberId(memberId)
                 .id(id)
                 .password(password)
                 .sex(sex)
@@ -108,7 +106,6 @@ public class MemberDto {
                 .smokeYn(smokeYn)
                 .profilePhotoId(profilePhotoId)
                 .tier(tier)
-                .createdTime(createdTime)
                 .build();
     }
 }
